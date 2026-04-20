@@ -11,8 +11,8 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 # ---------------------------
 # 1. RUN CLANG-TIDY
 # ---------------------------
-def run_clang_tidy(file_path):
-    os.system(f"g++ -fsyntax-only {file_path} > output.txt 2>&1")
+def run_analysis(file_path):
+    os.system(f"clang-tidy {file_path} -- -std=c++17 > output.txt 2>&1")
 
 # ---------------------------
 # 2. PARSE ISSUES
@@ -26,7 +26,7 @@ def get_issues(file_path):
         return []
 
     # FIXED regex for g++
-    pattern = r'(.+\.cpp):(\d+):(\d+):\s*(error|warning):\s*(.*)'
+    pattern = r'([A-Za-z]:\\.*?\.cpp):(\d+):(\d+):\s*(warning|error):\s*(.*?)\s*\[(.*?)\]'
 
     matches = re.finditer(pattern, text)
 
