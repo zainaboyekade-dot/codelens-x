@@ -19,8 +19,8 @@ def run_clang_tidy(file_path):
 # ---------------------------
 def get_issues(file_path):
 
-    with open("output.txt", "r", encoding="utf-8", errors="ignore") as f:
-            text = f.read()
+    if not os.path.exists("output.txt"):
+    return []
 
     with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
         code = f.read()
