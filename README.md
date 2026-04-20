@@ -2,7 +2,7 @@
 
 **Hybrid C/C++ Code Analysis System using clang-tidy + AI Explanations**
 
-👉 Live Demo: [https://codelens-x.streamlit.app](https://codelens-x.streamlit.app)
+👉 Live Demo: https://drive.google.com/file/d/1xhZmSBGVXbo3LRmnh5kV0dP2RF6_flbb/view?usp=drive_link
 
 ---
 
@@ -181,7 +181,7 @@ CodeLens-X demonstrates that combining both creates a more usable developer tool
 
 ## 🎥 Demo
 
-👉 [https://codelens-x.streamlit.app](https://codelens-x.streamlit.app)
+👉 https://drive.google.com/file/d/1xhZmSBGVXbo3LRmnh5kV0dP2RF6_flbb/view?usp=drive_link
 
 ---
 
