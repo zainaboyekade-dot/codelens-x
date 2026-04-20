@@ -25,29 +25,26 @@ def get_issues(file_path):
     except FileNotFoundError:
         return []
 
-    pattern = r'([A-Za-z]:\\.*?\.cpp):(\d+):(\d+):\s*(warning|error):\s*(.*?)\s*\[(.*?)\]'
+    # FIXED regex for g++
+    pattern = r'(.+\.cpp):(\d+):(\d+):\s*(error|warning):\s*(.*)'
 
     matches = re.finditer(pattern, text)
 
     issues = []
 
     for m in matches:
-        issue_obj = {
+        issues.append({
             "language": "cpp",
-            "code": code.strip(),
+            "code": text.strip(),
             "issue": m.group(5).strip(),
-            "rule": m.group(6),
             "severity_tool": m.group(4),
             "location": {
                 "line": int(m.group(2)),
                 "column": int(m.group(3))
             }
-        }
-
-        issues.append(issue_obj)
+        })
 
     return issues
-
 
 # ---------------------------
 # 3. AI PROCESSING
