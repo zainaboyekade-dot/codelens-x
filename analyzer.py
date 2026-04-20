@@ -12,20 +12,19 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 # 1. RUN CLANG-TIDY
 # ---------------------------
 def run_clang_tidy(file_path):
-    os.system(f"clang-tidy {file_path} -- -std=c++17 > output.txt 2>&1")
+    os.system(f'cmd /c "clang-tidy {file_path} -- -std=c++17 > output.txt 2>&1"')
 
 # ---------------------------
 # 2. PARSE ISSUES
 # ---------------------------
 def get_issues(file_path):
 
-    try:
-        with open("output.txt", "r", encoding="utf-8", errors="ignore") as f:
+    with open("output.txt", "r", encoding="utf-8", errors="ignore") as f:
             text = f.read()
-    except FileNotFoundError:
-        return []
 
-    # FIXED regex for g++
+    with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+        code = f.read()
+
     pattern = r'([A-Za-z]:\\.*?\.cpp):(\d+):(\d+):\s*(warning|error):\s*(.*?)\s*\[(.*?)\]'
 
     matches = re.finditer(pattern, text)
@@ -33,18 +32,22 @@ def get_issues(file_path):
     issues = []
 
     for m in matches:
-        issues.append({
+        issue_obj = {
             "language": "cpp",
-            "code": text.strip(),
+            "code": code.strip(),
             "issue": m.group(5).strip(),
+            "rule": m.group(6),
             "severity_tool": m.group(4),
             "location": {
                 "line": int(m.group(2)),
                 "column": int(m.group(3))
             }
-        })
+        }
+
+        issues.append(issue_obj)
 
     return issues
+
 
 # ---------------------------
 # 3. AI PROCESSING
