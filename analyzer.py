@@ -12,7 +12,7 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 # 1. RUN CLANG-TIDY
 # ---------------------------
 def run_clang_tidy(file_path):
-    os.system(f"clang-tidy {file_path} -- -std=c++17 > output.txt 2>&1")
+    os.system(f"g++ -fsyntax-only {file_path} > output.txt 2>&1")
 
 # ---------------------------
 # 2. PARSE ISSUES
