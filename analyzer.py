@@ -23,7 +23,7 @@ def get_issues(file_path):
     return []
 
     with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
-        code = f.read()
+        text = f.read()
 
     pattern = r'([A-Za-z]:\\.*?\.cpp):(\d+):(\d+):\s*(warning|error):\s*(.*?)\s*\[(.*?)\]'
 
