@@ -63,19 +63,19 @@ if st.button("📑Analyze Code"):
 
         for i, issue in enumerate(issues):
 
-            st.markdown(f"""
-    ## ‼️Issue {i+1} - {issue['issue']}
+        st.markdown(f"""
+    ## ‼️ Issue {i+1} - {issue['issue']}
     """)
-    rule = issue.get("rule", "g++ compiler")
-            # clang-tidy dropdown
-            with st.expander("🔴 clang-tidy details"):
-                st.markdown(f"""
+    
+        rule = issue.get("rule", "g++ compiler")
+    
+        with st.expander("🔴 clang-tidy details"):
+            st.markdown(f"""
     - **Rule:** {rule}
     - **Line:** {issue["location"]["line"]}
     - **Column:** {issue["location"]["column"]}
     - **Severity:** {issue["severity_tool"]}
     """)
-
             # AI dropdown
             with st.expander("🤖 AI explanation"):
                 st.text(ai_results[i])
